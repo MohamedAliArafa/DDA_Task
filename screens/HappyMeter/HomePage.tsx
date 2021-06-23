@@ -153,7 +153,7 @@ export default () => {
               {/* Show When no progress */}
               {visible &&
                 <Content
-                  backgroundColor="#6863D4"
+                  backgroundColor="#274472"
                   progress={progress}
                 />
               }

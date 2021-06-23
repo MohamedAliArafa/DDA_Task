@@ -31,6 +31,10 @@ const reducer = (state = initialState, action) => {
           entries: state.entries.concat(item)
         }
       }
+    case "DELETE_ITEM":
+      return {
+        entries: state.entries.filter(item => item.id != action.id)
+      }
   }
   return state
 }
