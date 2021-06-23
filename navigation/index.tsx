@@ -1,37 +1,45 @@
-/**
- * If you are not familiar with React Navigation, check out the "Fundamentals" guide:
- * https://reactnavigation.org/docs/getting-started
- *
- */
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
-import { ColorSchemeName } from 'react-native';
+import React from 'react';
+import { Alert, ColorSchemeName } from 'react-native';
+import LiquidSwipe from '../LiquidSwipe';
+import { createStore } from 'redux'
+import { Provider } from 'react-redux';
+import moment from 'moment';
 
-import NotFoundScreen from '../screens/NotFoundScreen';
-import { RootStackParamList } from '../types';
-import BottomTabNavigator from './BottomTabNavigator';
-import LinkingConfiguration from './LinkingConfiguration';
-
-export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
-  return (
-    <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <RootNavigator />
-    </NavigationContainer>
-  );
+// Redux Initial State
+const initialState = {
+  entries: [
+  ]
 }
 
-// A root stack navigator is often used for displaying modals on top of all other content
-// Read more here: https://reactnavigation.org/docs/modal
-const Stack = createStackNavigator<RootStackParamList>();
+// Redux Reducer
+const reducer = (state = initialState, action) => {
+  console.log(action);
+  switch(action.type){
+    // Add Item Action
+    case "ADD_ITEM":
+      let todayItems = state.entries.filter(item => moment(item.dateAdd).isSame(Date.now(), 'day'));
+      if (todayItems.length > 4) {
+        Alert.alert("Error", "Exceeded Daily Entries")
+        return {
+          entries: state.entries
+        }
+      } else {
+        Alert.alert("Thank You", "Thank you for your feedback! :)");
+        const item = {id: Math.random(), text: action.text, dateAdd: Date.now()}
+        console.log(Date.now())
+        return {
+          entries: state.entries.concat(item)
+        }
+      }
+  }
+  return state
+}
 
-function RootNavigator() {
+export default function Navigation() {
+  const store = createStore(reducer)
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Root" component={BottomTabNavigator} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-    </Stack.Navigator>
+    <Provider store={store}>
+        <LiquidSwipe />
+    </Provider>
   );
 }
