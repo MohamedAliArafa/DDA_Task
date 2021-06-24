@@ -1,7 +1,7 @@
 # Liquid Swipe
 
 
-![Animation](https://raw.githubusercontent.com/Cuberto/liquid-swipe/master/Screenshots/animation.gif)
+![Animation](demo.gif)
 
 ## Requirements
 

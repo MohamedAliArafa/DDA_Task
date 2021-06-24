@@ -72,7 +72,7 @@ const horRadius = cond(
   waveHorRadius(progress)
 );
 const vertRadius = waveVertRadius(progress);
-const sWidth = sideWidth(progress);
+let sWidth = sideWidth(progress);
 
 export default () => {
 
@@ -141,6 +141,7 @@ export default () => {
             type: "ADD_ITEM",
             text: name
           })
+          // sWidth= new Value(0);
         }}
       />
 
@@ -166,6 +167,7 @@ export default () => {
                       type: "ADD_ITEM",
                       text: name
                     })
+                    // sWidth= new Value(0);
                   }}
                 />
               }
