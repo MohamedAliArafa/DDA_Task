@@ -62,13 +62,9 @@ export default ({
   useCode(() => {
     return call([opacity], (opacity) => {
       if (opacity[0] < 0.1) {
-        setVisibilty((value) => {
-          return false
-        });
+        setVisibilty(false);
       } else {
-        setVisibilty((value) => {
-          return true
-        });
+        setVisibilty(true);
       }
     })
   }, [opacity])

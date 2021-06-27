@@ -12,9 +12,11 @@ const size = 50;
 interface ButtonProps {
   progress: Animated.Node<number>;
   y: Animated.Node<number>;
+  onButtonPressed:any;
+  icon:String;
 }
 
-export default ({ progress, y }: ButtonProps) => {
+export default ({ icon, progress, y, onButtonPressed }: ButtonProps) => {
   const translateX = interpolateNode(progress, {
     inputRange: [0, 0.4],
     outputRange: [width - size, 0],
@@ -55,9 +57,9 @@ export default ({ progress, y }: ButtonProps) => {
       }
     }
     >
-      <TouchableOpacity>
-        <MaterialCommunityIcons name="emoticon-happy" color="white" size={30} />
-      </TouchableOpacity>
+      <Pressable onPressIn={onButtonPressed}>
+        <MaterialCommunityIcons name={icon} color="white" size={30} />
+      </Pressable>
     </Animated.View>
   );
 };
